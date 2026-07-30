@@ -85,6 +85,52 @@ placeholder="対戦相手・大会名で検索">
 
 </footer>
 
+<!-- ==================================================
+     YouTube動画再生モーダル
+================================================== -->
+
+<div
+    id="videoModal"
+    class="video-modal"
+    onclick="closeVideo()"
+>
+
+    <div
+        class="video-modal-content"
+        onclick="event.stopPropagation()"
+    >
+
+        <button
+            class="video-close"
+            onclick="closeVideo()"
+            aria-label="動画を閉じる"
+        >
+            ×
+        </button>
+
+        <div class="video-player">
+
+            <iframe
+                id="youtubePlayer"
+                src=""
+                title="FC Abies 試合動画"
+                frameborder="0"
+                allow="
+                    autoplay;
+                    encrypted-media;
+                    picture-in-picture;
+                    web-share
+                "
+                allowfullscreen
+            >
+            </iframe>
+
+        </div>
+
+    </div>
+
+</div>
+
 <script src="script.js"></script>
 
 </body>
