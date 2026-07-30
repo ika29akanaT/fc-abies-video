@@ -561,6 +561,7 @@ function displayVideos(videos) {
             .join("");
 
 }
+
 /* ======================================================
    検索・フィルター
 ====================================================== */
@@ -1005,6 +1006,7 @@ function updateFilterResult(
     );
 
 }
+
     /* 二重登録防止 */
 
     searchBox.oninput = function() {
