@@ -402,41 +402,34 @@ function createVideoCard(video) {
     const videoId =
         getYoutubeId(video.youtube);
 
-
     const thumbnail =
         getThumbnail(videoId);
 
 
     return `
 
-        <article class="video-card">
+        <article
+            class="video-card"
+            onclick="openVideo('${videoId}')"
+        >
 
-            <a
-                href="${video.youtube}"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="video-link"
-            >
+            <div class="thumbnail">
 
-                <div class="thumbnail">
+                <img
+                    src="${thumbnail}"
+                    alt="${escapeHTML(video.category)} vs ${escapeHTML(video.opponent)}"
+                    loading="lazy"
+                >
 
-                    <img
-                        src="${thumbnail}"
-                        alt="${video.category} vs ${video.opponent}"
-                        loading="lazy"
-                    >
-
-                    <div class="play-button">
-                        ▶
-                    </div>
-
-                    <div class="video-category">
-                        ${escapeHTML(video.category)}
-                    </div>
-
+                <div class="play-button">
+                    ▶
                 </div>
 
-            </a>
+                <div class="video-category">
+                    ${escapeHTML(video.category)}
+                </div>
+
+            </div>
 
 
             <div class="video-info">
@@ -462,14 +455,12 @@ function createVideoCard(video) {
                 </div>
 
 
-                <a
-                    href="${video.youtube}"
-                    target="_blank"
-                    rel="noopener noreferrer"
+                <button
                     class="watch-btn"
+                    onclick="event.stopPropagation(); openVideo('${videoId}')"
                 >
                     ▶ 動画を見る
-                </a>
+                </button>
 
             </div>
 
@@ -670,6 +661,97 @@ document.addEventListener(
     function() {
 
         loadVideos();
+
+    }
+);
+/* ======================================================
+   サイト内YouTube再生
+====================================================== */
+
+function openVideo(videoId) {
+
+    if (!videoId) {
+
+        return;
+
+    }
+
+
+    const modal =
+        document.getElementById("videoModal");
+
+
+    const iframe =
+        document.getElementById("youtubePlayer");
+
+
+    if (!modal || !iframe) {
+
+        return;
+
+    }
+
+
+    iframe.src =
+        "https://www.youtube.com/embed/" +
+        videoId +
+        "?autoplay=1&rel=0";
+
+
+    modal.classList.add("active");
+
+
+    document.body.style.overflow =
+        "hidden";
+
+}
+
+
+/* ======================================================
+   動画再生画面を閉じる
+====================================================== */
+
+function closeVideo() {
+
+    const modal =
+        document.getElementById("videoModal");
+
+
+    const iframe =
+        document.getElementById("youtubePlayer");
+
+
+    if (!modal || !iframe) {
+
+        return;
+
+    }
+
+
+    iframe.src = "";
+
+    modal.classList.remove("active");
+
+
+    document.body.style.overflow =
+        "";
+
+}
+
+
+/* ======================================================
+   ESCキーで閉じる
+====================================================== */
+
+document.addEventListener(
+    "keydown",
+    function(event) {
+
+        if (event.key === "Escape") {
+
+            closeVideo();
+
+        }
 
     }
 );
