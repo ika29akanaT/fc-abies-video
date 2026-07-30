@@ -1017,51 +1017,6 @@ function updateFilterResult(
     );
 
 }
-
-    /* 二重登録防止 */
-
-    searchBox.oninput = function() {
-
-        const keyword =
-            this.value
-                .trim()
-                .toLowerCase();
-
-
-        if (!keyword) {
-
-            displayVideos(allVideos);
-
-            return;
-
-        }
-
-
-        const results =
-            allVideos.filter(video => {
-
-                const text = `
-
-                    ${video.date}
-                    ${video.category}
-                    ${video.opponent}
-                    ${video.venue}
-
-                `.toLowerCase();
-
-
-                return text.includes(keyword);
-
-            });
-
-
-        displayVideos(results);
-
-    };
-
-}
-
-
 /* ======================================================
    HTMLエスケープ
 ====================================================== */
