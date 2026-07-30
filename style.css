@@ -952,3 +952,174 @@ footer {
     }
 
 }
+/* ======================================================
+   VIDEO FILTERS
+====================================================== */
+
+.video-filters {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 10px;
+
+    margin: 20px auto 40px;
+
+    flex-wrap: wrap;
+
+}
+
+
+/* セレクトボックス */
+
+.video-filters select {
+
+    min-width: 180px;
+
+    height: 42px;
+
+    padding: 0 38px 0 15px;
+
+    border: 1px solid #333;
+
+    border-radius: 22px;
+
+    background: #202020;
+
+    color: #fff;
+
+    font-size: 13px;
+
+    cursor: pointer;
+
+    appearance: auto;
+
+    transition:
+        border-color 0.2s ease,
+        background 0.2s ease;
+
+}
+
+
+.video-filters select:hover {
+
+    background: #282828;
+
+    border-color:
+        #555;
+
+}
+
+
+.video-filters select:focus {
+
+    outline: none;
+
+    border-color:
+        var(--blue);
+
+}
+
+
+/* クリアボタン */
+
+#clearFilters {
+
+    height: 42px;
+
+    padding: 0 18px;
+
+    border: 1px solid #333;
+
+    border-radius: 22px;
+
+    background: transparent;
+
+    color: #aaa;
+
+    font-size: 13px;
+
+    cursor: pointer;
+
+    transition:
+        color 0.2s ease,
+        border-color 0.2s ease,
+        background 0.2s ease;
+
+}
+
+
+#clearFilters:hover {
+
+    color: #fff;
+
+    border-color:
+        var(--blue);
+
+    background:
+        rgba(25, 118, 255, 0.12);
+
+}
+
+
+/* ======================================================
+   FILTER RESULT
+====================================================== */
+
+.filter-result {
+
+    margin:
+        -20px 0 25px;
+
+    color: #888;
+
+    text-align: center;
+
+    font-size: 13px;
+
+}
+
+
+/* ======================================================
+   MOBILE
+====================================================== */
+
+@media (max-width: 700px) {
+
+    .video-filters {
+
+        display: grid;
+
+        grid-template-columns:
+            1fr 1fr;
+
+        width: 100%;
+
+        margin:
+            15px auto 30px;
+
+    }
+
+
+    .video-filters select {
+
+        width: 100%;
+
+        min-width: 0;
+
+    }
+
+
+    #clearFilters {
+
+        grid-column:
+            1 / -1;
+
+        width: 100%;
+
+    }
+
+}
