@@ -564,7 +564,7 @@ function displayVideos(videos) {
 
 
 /* ======================================================
-   検索
+   検索・フィルター
 ====================================================== */
 
 function setupSearch(allVideos) {
@@ -572,12 +572,441 @@ function setupSearch(allVideos) {
     const searchBox =
         document.getElementById("search");
 
+    const categoryFilter =
+        document.getElementById("categoryFilter");
 
-    if (!searchBox) {
+    const monthFilter =
+        document.getElementById("monthFilter");
+
+    const clearButton =
+        document.getElementById("clearFilters");
+
+
+    /* 大会フィルター作成 */
+
+    setupCategoryFilter(
+        allVideos,
+        categoryFilter
+    );
+
+
+    /* 年月フィルター作成 */
+
+    setupMonthFilter(
+        allVideos,
+        monthFilter
+    );
+
+
+    /* 検索 */
+
+    if (searchBox) {
+
+        searchBox.oninput =
+            function() {
+
+                applyFilters(allVideos);
+
+            };
+
+    }
+
+
+    /* 大会 */
+
+    if (categoryFilter) {
+
+        categoryFilter.onchange =
+            function() {
+
+                applyFilters(allVideos);
+
+            };
+
+    }
+
+
+    /* 年月 */
+
+    if (monthFilter) {
+
+        monthFilter.onchange =
+            function() {
+
+                applyFilters(allVideos);
+
+            };
+
+    }
+
+
+    /* クリア */
+
+    if (clearButton) {
+
+        clearButton.onclick =
+            function() {
+
+                if (searchBox) {
+
+                    searchBox.value = "";
+
+                }
+
+
+                if (categoryFilter) {
+
+                    categoryFilter.value = "";
+
+                }
+
+
+                if (monthFilter) {
+
+                    monthFilter.value = "";
+
+                }
+
+
+                applyFilters(allVideos);
+
+            };
+
+    }
+
+}
+
+
+/* ======================================================
+   大会フィルター
+====================================================== */
+
+function setupCategoryFilter(
+    videos,
+    select
+) {
+
+    if (!select) {
 
         return;
 
     }
+
+
+    const categories =
+        [
+            ...new Set(
+                videos
+                    .map(video =>
+                        video.category.trim()
+                    )
+                    .filter(Boolean)
+            )
+        ];
+
+
+    categories.sort(
+        (a, b) =>
+            a.localeCompare(b, "ja")
+    );
+
+
+    categories.forEach(
+        function(category) {
+
+            const option =
+                document.createElement("option");
+
+
+            option.value =
+                category;
+
+
+            option.textContent =
+                category;
+
+
+            select.appendChild(option);
+
+        }
+    );
+
+}
+
+
+/* ======================================================
+   年月フィルター
+====================================================== */
+
+function setupMonthFilter(
+    videos,
+    select
+) {
+
+    if (!select) {
+
+        return;
+
+    }
+
+
+    const months =
+        [
+            ...new Set(
+
+                videos
+
+                    .map(video =>
+                        getYearMonth(video.date)
+                    )
+
+                    .filter(Boolean)
+
+            )
+        ];
+
+
+    months.sort(
+        (a, b) =>
+            b.localeCompare(a)
+    );
+
+
+    months.forEach(
+        function(month) {
+
+            const option =
+                document.createElement("option");
+
+
+            option.value =
+                month;
+
+
+            option.textContent =
+                formatYearMonth(month);
+
+
+            select.appendChild(option);
+
+        }
+    );
+
+}
+
+
+/* ======================================================
+   年月を取得
+====================================================== */
+
+function getYearMonth(dateString) {
+
+    if (!dateString) {
+
+        return "";
+
+    }
+
+
+    const match =
+        String(dateString).match(
+            /(\d{4})[\/\-.](\d{1,2})/
+        );
+
+
+    if (!match) {
+
+        return "";
+
+    }
+
+
+    const year =
+        match[1];
+
+
+    const month =
+        String(match[2]).padStart(
+            2,
+            "0"
+        );
+
+
+    return `${year}-${month}`;
+
+}
+
+
+/* ======================================================
+   年月表示
+====================================================== */
+
+function formatYearMonth(month) {
+
+    const parts =
+        month.split("-");
+
+
+    if (parts.length !== 2) {
+
+        return month;
+
+    }
+
+
+    return `${parts[0]}年${Number(parts[1])}月`;
+
+}
+
+
+/* ======================================================
+   全フィルター適用
+====================================================== */
+
+function applyFilters(allVideos) {
+
+    const searchBox =
+        document.getElementById("search");
+
+    const categoryFilter =
+        document.getElementById("categoryFilter");
+
+    const monthFilter =
+        document.getElementById("monthFilter");
+
+
+    const keyword =
+        searchBox
+            ? searchBox.value
+                .trim()
+                .toLowerCase()
+            : "";
+
+
+    const category =
+        categoryFilter
+            ? categoryFilter.value
+            : "";
+
+
+    const month =
+        monthFilter
+            ? monthFilter.value
+            : "";
+
+
+    const results =
+        allVideos.filter(
+            function(video) {
+
+
+                /* キーワード */
+
+                const text = `
+
+                    ${video.date}
+                    ${video.category}
+                    ${video.opponent}
+                    ${video.venue}
+
+                `.toLowerCase();
+
+
+                const matchesKeyword =
+                    !keyword ||
+                    text.includes(keyword);
+
+
+                /* 大会 */
+
+                const matchesCategory =
+                    !category ||
+                    video.category === category;
+
+
+                /* 年月 */
+
+                const matchesMonth =
+                    !month ||
+                    getYearMonth(
+                        video.date
+                    ) === month;
+
+
+                return (
+                    matchesKeyword &&
+                    matchesCategory &&
+                    matchesMonth
+                );
+
+            }
+        );
+
+
+    displayVideos(results);
+
+
+    updateFilterResult(
+        results.length,
+        allVideos.length
+    );
+
+}
+
+
+/* ======================================================
+   検索結果件数
+====================================================== */
+
+function updateFilterResult(
+    resultCount,
+    totalCount
+) {
+
+    const oldMessage =
+        document.querySelector(
+            ".filter-result"
+        );
+
+
+    if (oldMessage) {
+
+        oldMessage.remove();
+
+    }
+
+
+    const videoList =
+        document.getElementById(
+            "videoList"
+        );
+
+
+    if (!videoList) {
+
+        return;
+
+    }
+
+
+    const message =
+        document.createElement("div");
+
+
+    message.className =
+        "filter-result";
+
+
+    message.textContent =
+        `${resultCount}件 / 全${totalCount}件`;
+
+
+    videoList.parentNode.insertBefore(
+        message,
+        videoList
+    );
+
+}
 
 
     /* 二重登録防止 */
