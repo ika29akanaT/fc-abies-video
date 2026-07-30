@@ -1,44 +1,332 @@
 /* ======================================================
    FC Abies（2026年 C Team）
    VIDEO LIBRARY
-   script.js / Version 1
+   Googleスプレッドシート連携版
 ====================================================== */
 
 
 /* ======================================================
-   仮の動画データ
-   -----------------------------------------------
-   次の回でGoogleスプレッドシートから
-   自動取得する仕組みに変更します。
+   Googleスプレッドシート CSV URL
 ====================================================== */
 
-const videos = [
+const SHEET_URL =
+    "https://docs.google.com/spreadsheets/d/e/2PACX-1vSAg5XxZ9ECrL0zHkKXQThb0Mzn77pFwuwohErBhuAxC5MkT2W6YXzPCctM0uNZZQ2HZnGjN2BVPrwX/pub?gid=1611060981&single=true&output=csv";
 
-    {
-        date: "2026/07/27",
-        category: "南信リーグ3部 第3節",
-        opponent: "エアフォルク長野",
-        venue: "菅平80番グラウンド",
-        youtube: "https://www.youtube.com/watch?v=XXXXXXXXXXX"
-    },
 
-    {
-        date: "2026/07/13",
-        category: "南信リーグ3部 第2節",
-        opponent: "NexWayB",
-        venue: "岡谷北部中学校",
-        youtube: "https://www.youtube.com/watch?v=YYYYYYYYYYY"
-    },
+/* ======================================================
+   CSVを取得
+====================================================== */
 
-    {
-        date: "2026/07/10",
-        category: "南信リーグ3部 第1節",
-        opponent: "箕輪・辰野B",
-        venue: "川路多目的広場",
-        youtube: "https://www.youtube.com/watch?v=ZZZZZZZZZZZ"
+async function loadVideos() {
+
+    const container =
+        document.getElementById("videoList");
+
+    const latestContainer =
+        document.getElementById("latestVideo");
+
+
+    if (container) {
+
+        container.innerHTML =
+            '<div class="loading">動画データを読み込んでいます</div>';
+
     }
 
-];
+
+    try {
+
+        const response =
+            await fetch(SHEET_URL + "&t=" + Date.now());
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                "スプレッドシートを取得できませんでした"
+            );
+
+        }
+
+
+        const csvText =
+            await response.text();
+
+
+        const videos =
+            parseCSV(csvText);
+
+
+        /* 日付の新しい順に並べる */
+
+        videos.sort(function(a, b) {
+
+            return parseDate(b.date) -
+                   parseDate(a.date);
+
+        });
+
+
+        /* 最新動画 */
+
+        displayLatestVideo(videos);
+
+
+        /* 動画一覧 */
+
+        displayVideos(videos);
+
+
+        /* 検索機能 */
+
+        setupSearch(videos);
+
+
+    } catch (error) {
+
+        console.error(error);
+
+
+        if (container) {
+
+            container.innerHTML = `
+
+                <div class="no-results">
+
+                    <strong>
+                        動画データを取得できませんでした
+                    </strong>
+
+                    <p>
+                        しばらく時間をおいてから
+                        再度お試しください。
+                    </p>
+
+                </div>
+
+            `;
+
+        }
+
+    }
+
+}
+
+
+/* ======================================================
+   CSV解析
+====================================================== */
+
+function parseCSV(csv) {
+
+    const rows = [];
+
+    let row = [];
+
+    let value = "";
+
+    let insideQuotes = false;
+
+
+    for (let i = 0; i < csv.length; i++) {
+
+        const char = csv[i];
+
+        const next = csv[i + 1];
+
+
+        /* ダブルクォーテーション */
+
+        if (char === '"') {
+
+            if (
+                insideQuotes &&
+                next === '"'
+            ) {
+
+                value += '"';
+
+                i++;
+
+            } else {
+
+                insideQuotes =
+                    !insideQuotes;
+
+            }
+
+            continue;
+
+        }
+
+
+        /* カンマ */
+
+        if (
+            char === "," &&
+            !insideQuotes
+        ) {
+
+            row.push(value.trim());
+
+            value = "";
+
+            continue;
+
+        }
+
+
+        /* 改行 */
+
+        if (
+            (char === "\n" || char === "\r") &&
+            !insideQuotes
+        ) {
+
+            if (
+                char === "\r" &&
+                next === "\n"
+            ) {
+
+                i++;
+
+            }
+
+
+            row.push(value.trim());
+
+            value = "";
+
+
+            if (row.some(cell => cell !== "")) {
+
+                rows.push(row);
+
+            }
+
+
+            row = [];
+
+            continue;
+
+        }
+
+
+        value += char;
+
+    }
+
+
+    /* 最後の行 */
+
+    if (value !== "" || row.length > 0) {
+
+        row.push(value.trim());
+
+        if (row.some(cell => cell !== "")) {
+
+            rows.push(row);
+
+        }
+
+    }
+
+
+    if (rows.length < 2) {
+
+        return [];
+
+    }
+
+
+    /* 1行目を見出しとして使用 */
+
+    const headers =
+        rows[0].map(header =>
+            header.trim()
+        );
+
+
+    const dateIndex =
+        headers.indexOf("日付");
+
+    const categoryIndex =
+        headers.indexOf("大会");
+
+    const opponentIndex =
+        headers.indexOf("対戦相手");
+
+    const venueIndex =
+        headers.indexOf("会場");
+
+    const youtubeIndex =
+        headers.indexOf("動画URL");
+
+
+    return rows
+        .slice(1)
+        .map(row => {
+
+            return {
+
+                date:
+                    row[dateIndex] || "",
+
+                category:
+                    row[categoryIndex] || "",
+
+                opponent:
+                    row[opponentIndex] || "",
+
+                venue:
+                    row[venueIndex] || "",
+
+                youtube:
+                    row[youtubeIndex] || ""
+
+            };
+
+        })
+        .filter(video =>
+            video.youtube !== ""
+        );
+
+}
+
+
+/* ======================================================
+   日付をDateに変換
+====================================================== */
+
+function parseDate(dateString) {
+
+    if (!dateString) {
+
+        return 0;
+
+    }
+
+
+    const normalized =
+        dateString
+            .replace(/\//g, "-")
+            .replace(/\./g, "-");
+
+
+    const date =
+        new Date(normalized);
+
+
+    if (isNaN(date.getTime())) {
+
+        return 0;
+
+    }
+
+
+    return date.getTime();
+
+}
 
 
 /* ======================================================
@@ -48,8 +336,11 @@ const videos = [
 function getYoutubeId(url) {
 
     if (!url) {
+
         return "";
+
     }
+
 
     const patterns = [
 
@@ -63,9 +354,12 @@ function getYoutubeId(url) {
 
     ];
 
+
     for (const pattern of patterns) {
 
-        const match = url.match(pattern);
+        const match =
+            url.match(pattern);
+
 
         if (match) {
 
@@ -75,13 +369,14 @@ function getYoutubeId(url) {
 
     }
 
+
     return "";
 
 }
 
 
 /* ======================================================
-   YouTubeサムネイルURLを作成
+   YouTubeサムネイル
 ====================================================== */
 
 function getThumbnail(videoId) {
@@ -92,20 +387,25 @@ function getThumbnail(videoId) {
 
     }
 
+
     return `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
 
 }
 
 
 /* ======================================================
-   動画カードを作成
+   動画カード
 ====================================================== */
 
 function createVideoCard(video) {
 
-    const videoId = getYoutubeId(video.youtube);
+    const videoId =
+        getYoutubeId(video.youtube);
 
-    const thumbnail = getThumbnail(videoId);
+
+    const thumbnail =
+        getThumbnail(videoId);
+
 
     return `
 
@@ -131,7 +431,7 @@ function createVideoCard(video) {
                     </div>
 
                     <div class="video-category">
-                        ${video.category}
+                        ${escapeHTML(video.category)}
                     </div>
 
                 </div>
@@ -142,21 +442,21 @@ function createVideoCard(video) {
             <div class="video-info">
 
                 <h3>
-                    ${video.category}
+                    ${escapeHTML(video.category)}
                 </h3>
 
                 <p class="video-opponent">
-                    ⚽ vs ${video.opponent}
+                    ⚽ vs ${escapeHTML(video.opponent)}
                 </p>
 
                 <div class="video-meta">
 
                     <span>
-                        📅 ${video.date}
+                        📅 ${escapeHTML(video.date)}
                     </span>
 
                     <span>
-                        📍 ${video.venue}
+                        📍 ${escapeHTML(video.venue)}
                     </span>
 
                 </div>
@@ -181,13 +481,14 @@ function createVideoCard(video) {
 
 
 /* ======================================================
-   最新動画を表示
+   最新動画
 ====================================================== */
 
-function displayLatestVideo() {
+function displayLatestVideo(videos) {
 
     const container =
         document.getElementById("latestVideo");
+
 
     if (!container) {
 
@@ -195,15 +496,16 @@ function displayLatestVideo() {
 
     }
 
+
     if (videos.length === 0) {
 
         container.innerHTML = `
 
             <div class="no-results">
 
-                <strong>動画がありません</strong>
-
-                現在登録されている動画はありません。
+                <strong>
+                    動画がありません
+                </strong>
 
             </div>
 
@@ -212,6 +514,7 @@ function displayLatestVideo() {
         return;
 
     }
+
 
     container.innerHTML =
         createVideoCard(videos[0]);
@@ -220,13 +523,14 @@ function displayLatestVideo() {
 
 
 /* ======================================================
-   動画一覧を表示
+   動画一覧
 ====================================================== */
 
-function displayVideos(videoData) {
+function displayVideos(videos) {
 
     const container =
         document.getElementById("videoList");
+
 
     if (!container) {
 
@@ -235,15 +539,19 @@ function displayVideos(videoData) {
     }
 
 
-    if (videoData.length === 0) {
+    if (videos.length === 0) {
 
         container.innerHTML = `
 
             <div class="no-results">
 
-                <strong>動画が見つかりません</strong>
+                <strong>
+                    動画が見つかりません
+                </strong>
 
-                検索条件を変更してください。
+                <p>
+                    検索条件を変更してください。
+                </p>
 
             </div>
 
@@ -255,8 +563,10 @@ function displayVideos(videoData) {
 
 
     container.innerHTML =
-        videoData
-            .map(video => createVideoCard(video))
+        videos
+            .map(video =>
+                createVideoCard(video)
+            )
             .join("");
 
 }
@@ -266,49 +576,7 @@ function displayVideos(videoData) {
    検索
 ====================================================== */
 
-function searchVideos(keyword) {
-
-    const searchKeyword =
-        keyword.trim().toLowerCase();
-
-
-    if (!searchKeyword) {
-
-        displayVideos(videos);
-
-        return;
-
-    }
-
-
-    const results =
-        videos.filter(video => {
-
-            const text = `
-
-                ${video.date}
-                ${video.category}
-                ${video.opponent}
-                ${video.venue}
-
-            `.toLowerCase();
-
-
-            return text.includes(searchKeyword);
-
-        });
-
-
-    displayVideos(results);
-
-}
-
-
-/* ======================================================
-   検索ボックス
-====================================================== */
-
-function setupSearch() {
+function setupSearch(allVideos) {
 
     const searchBox =
         document.getElementById("search");
@@ -321,38 +589,87 @@ function setupSearch() {
     }
 
 
-    searchBox.addEventListener(
-        "input",
-        function () {
+    /* 二重登録防止 */
 
-            searchVideos(this.value);
+    searchBox.oninput = function() {
+
+        const keyword =
+            this.value
+                .trim()
+                .toLowerCase();
+
+
+        if (!keyword) {
+
+            displayVideos(allVideos);
+
+            return;
 
         }
-    );
+
+
+        const results =
+            allVideos.filter(video => {
+
+                const text = `
+
+                    ${video.date}
+                    ${video.category}
+                    ${video.opponent}
+                    ${video.venue}
+
+                `.toLowerCase();
+
+
+                return text.includes(keyword);
+
+            });
+
+
+        displayVideos(results);
+
+    };
 
 }
 
 
 /* ======================================================
-   初期表示
+   HTMLエスケープ
 ====================================================== */
 
-function initialize() {
+function escapeHTML(value) {
 
-    displayLatestVideo();
+    if (!value) {
 
-    displayVideos(videos);
+        return "";
 
-    setupSearch();
+    }
+
+
+    return String(value)
+
+        .replace(/&/g, "&amp;")
+
+        .replace(/</g, "&lt;")
+
+        .replace(/>/g, "&gt;")
+
+        .replace(/"/g, "&quot;")
+
+        .replace(/'/g, "&#039;");
 
 }
 
 
 /* ======================================================
-   ページ読み込み完了
+   開始
 ====================================================== */
 
 document.addEventListener(
     "DOMContentLoaded",
-    initialize
+    function() {
+
+        loadVideos();
+
+    }
 );
