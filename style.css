@@ -755,3 +755,200 @@ footer {
         transition-duration: 0.01ms !important;
     }
 }
+/* ======================================================
+   VIDEO MODAL
+====================================================== */
+
+.video-modal {
+
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 9999;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 30px;
+
+    background:
+        rgba(0, 0, 0, 0.88);
+
+    opacity: 0;
+
+    visibility: hidden;
+
+    pointer-events: none;
+
+    transition:
+        opacity 0.25s ease,
+        visibility 0.25s ease;
+
+}
+
+
+/* 表示状態 */
+
+.video-modal.active {
+
+    opacity: 1;
+
+    visibility: visible;
+
+    pointer-events: auto;
+
+}
+
+
+/* プレーヤー */
+
+.video-modal-content {
+
+    position: relative;
+
+    width: min(1100px, 100%);
+
+    background: #111;
+
+    border-radius: 12px;
+
+    overflow: visible;
+
+    box-shadow:
+        0 20px 80px rgba(0, 0, 0, 0.7);
+
+    transform: scale(0.95);
+
+    transition:
+        transform 0.25s ease;
+
+}
+
+
+.video-modal.active
+.video-modal-content {
+
+    transform: scale(1);
+
+}
+
+
+/* 16:9 */
+
+.video-player {
+
+    position: relative;
+
+    width: 100%;
+
+    aspect-ratio: 16 / 9;
+
+    overflow: hidden;
+
+    border-radius: 12px;
+
+    background: #000;
+
+}
+
+
+.video-player iframe {
+
+    width: 100%;
+
+    height: 100%;
+
+    display: block;
+
+    border: none;
+
+}
+
+
+/* 閉じるボタン */
+
+.video-close {
+
+    position: absolute;
+
+    top: -48px;
+
+    right: 0;
+
+    z-index: 10;
+
+    width: 40px;
+
+    height: 40px;
+
+    border: none;
+
+    border-radius: 50%;
+
+    background: rgba(255,255,255,0.15);
+
+    color: #fff;
+
+    font-size: 30px;
+
+    line-height: 1;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        transform 0.2s ease;
+
+}
+
+
+.video-close:hover {
+
+    background:
+        var(--blue);
+
+    transform:
+        rotate(90deg);
+
+}
+
+
+/* ======================================================
+   MOBILE VIDEO MODAL
+====================================================== */
+
+@media (max-width: 700px) {
+
+    .video-modal {
+
+        padding: 15px;
+
+    }
+
+
+    .video-modal-content {
+
+        width: 100%;
+
+    }
+
+
+    .video-close {
+
+        top: -48px;
+
+        right: 0;
+
+        width: 38px;
+
+        height: 38px;
+
+        font-size: 28px;
+
+    }
+
+}
