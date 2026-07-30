@@ -241,25 +241,37 @@ function parseCSV(csv) {
     /* 1行目を見出しとして使用 */
 
     const headers =
-        rows[0].map(header =>
-            header.trim()
-        );
+    rows[0].map(header =>
+        header
+            .replace(/^\uFEFF/, "")
+            .trim()
+    );
 
 
     const dateIndex =
-        headers.indexOf("日付");
+       headers.findIndex(header =>
+           header === "日付"
+    );
 
-    const categoryIndex =
-        headers.indexOf("大会");
+   const categoryIndex =
+       headers.findIndex(header =>
+           header === "大会"
+    );
 
-    const opponentIndex =
-        headers.indexOf("対戦相手");
+   const opponentIndex =
+       headers.findIndex(header =>
+           header === "対戦相手"
+    );
 
-    const venueIndex =
-        headers.indexOf("会場");
+const venueIndex =
+    headers.findIndex(header =>
+        header === "会場"
+    );
 
-    const youtubeIndex =
-        headers.indexOf("動画URL");
+   const youtubeIndex =
+       headers.findIndex(header =>
+           header === "動画URL"
+    );
 
 
     return rows
