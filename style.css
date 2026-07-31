@@ -1929,3 +1929,625 @@ section h2 {
 
 
 }
+/* ======================================================
+   FC Abies FINAL DESIGN
+   Version 7
+====================================================== */
+
+
+/* ======================================================
+   TEAM LOGO
+====================================================== */
+
+.team-logo {
+
+    width: 44px;
+
+    height: 44px;
+
+    object-fit: contain;
+
+    display: block;
+
+}
+
+
+/* ======================================================
+   HERO
+====================================================== */
+
+.hero {
+
+    position: relative;
+
+    min-height: 300px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding:
+        55px 20px;
+
+    overflow: hidden;
+
+}
+
+
+/* 背景 */
+
+.hero::before {
+
+    content: "";
+
+    position: absolute;
+
+    inset: 0;
+
+    background:
+        radial-gradient(
+            circle at center,
+            rgba(25, 118, 255, 0.16),
+            transparent 60%
+        );
+
+    pointer-events: none;
+
+}
+
+
+/* 上部のライン */
+
+.hero::after {
+
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+
+    right: 0;
+
+    bottom: 0;
+
+    height: 1px;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(25, 118, 255, 0.5),
+            transparent
+        );
+
+}
+
+
+/* コンテンツ */
+
+.hero-content {
+
+    position: relative;
+
+    z-index: 1;
+
+    text-align: center;
+
+}
+
+
+/* シーズン */
+
+.hero-badge {
+
+    display: inline-block;
+
+    margin-bottom: 12px;
+
+    padding:
+        5px 14px;
+
+    border:
+        1px solid
+        rgba(25, 118, 255, 0.5);
+
+    border-radius: 20px;
+
+    color:
+        var(--blue-light);
+
+    background:
+        rgba(25, 118, 255, 0.08);
+
+    font-size: 10px;
+
+    font-weight: 700;
+
+    letter-spacing:
+        0.18em;
+
+}
+
+
+/* FC Abies */
+
+.hero-content h1 {
+
+    margin: 0;
+
+    font-size:
+        clamp(38px, 6vw, 68px);
+
+    font-weight: 800;
+
+    line-height: 1;
+
+    letter-spacing:
+        0.04em;
+
+}
+
+
+/* VIDEO LIBRARY */
+
+.hero-title {
+
+    margin-top: 10px;
+
+    color:
+        var(--blue-light);
+
+    font-size:
+        clamp(18px, 3vw, 27px);
+
+    font-weight: 700;
+
+    letter-spacing:
+        0.14em;
+
+}
+
+
+/* サブタイトル */
+
+.hero-content p {
+
+    margin-top: 14px;
+
+    color:
+        #999;
+
+    font-size: 13px;
+
+}
+
+
+/* ======================================================
+   SECTION TITLE
+====================================================== */
+
+section h2 {
+
+    display: flex;
+
+    align-items: baseline;
+
+    gap: 12px;
+
+}
+
+
+.section-subtitle {
+
+    color:
+        #555;
+
+    font-size: 10px;
+
+    font-weight: 600;
+
+    letter-spacing:
+        0.12em;
+
+}
+
+
+/* ======================================================
+   LATEST VIDEO
+====================================================== */
+
+#latestVideo .video-card {
+
+    position: relative;
+
+    overflow: hidden;
+
+    border:
+        1px solid #303030;
+
+    background:
+        linear-gradient(
+            135deg,
+            #1b1b1b,
+            #141414
+        );
+
+    box-shadow:
+        0 15px 45px
+        rgba(0, 0, 0, 0.35);
+
+}
+
+
+#latestVideo .video-card::before {
+
+    content:
+        "LATEST MATCH";
+
+    position: absolute;
+
+    top: 14px;
+
+    left: 14px;
+
+    z-index: 10;
+
+    padding:
+        5px 10px;
+
+    border-radius: 5px;
+
+    background:
+        var(--blue);
+
+    color:
+        #fff;
+
+    font-size: 9px;
+
+    font-weight: 800;
+
+    letter-spacing:
+        0.1em;
+
+}
+
+
+#latestVideo .video-info {
+
+    padding:
+        30px;
+
+}
+
+
+#latestVideo .video-opponent {
+
+    margin-top: 8px;
+
+    font-size: 17px;
+
+    font-weight: 600;
+
+    color:
+        #fff;
+
+}
+
+
+#latestVideo .video-meta {
+
+    margin-top: 8px;
+
+}
+
+
+/* ======================================================
+   VIDEO CARD
+====================================================== */
+
+.video-card {
+
+    transition:
+        transform 0.25s ease,
+        border-color 0.25s ease,
+        box-shadow 0.25s ease;
+
+}
+
+
+.video-card:hover {
+
+    transform:
+        translateY(-4px);
+
+    border-color:
+        rgba(25, 118, 255, 0.35);
+
+    box-shadow:
+        0 12px 35px
+        rgba(0, 0, 0, 0.35);
+
+}
+
+
+/* ======================================================
+   VIDEO INFO
+====================================================== */
+
+.video-info h3 {
+
+    letter-spacing:
+        0.01em;
+
+}
+
+
+.video-opponent {
+
+    font-weight:
+        600;
+
+}
+
+
+/* ======================================================
+   WATCH BUTTON
+====================================================== */
+
+.watch-btn {
+
+    position: relative;
+
+    overflow: hidden;
+
+    border: none;
+
+    cursor: pointer;
+
+}
+
+
+.watch-btn::after {
+
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+
+    left: -100%;
+
+    width: 70%;
+
+    height: 100%;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(255,255,255,0.2),
+            transparent
+        );
+
+    transition:
+        left 0.5s ease;
+
+}
+
+
+.watch-btn:hover::after {
+
+    left: 130%;
+
+}
+
+
+/* ======================================================
+   SEARCH
+====================================================== */
+
+.header-search #search {
+
+    background:
+        #181818;
+
+    border:
+        1px solid #333;
+
+}
+
+
+.header-search #search:focus {
+
+    background:
+        #1d1d1d;
+
+    border-color:
+        var(--blue);
+
+}
+
+
+/* ======================================================
+   FILTER
+====================================================== */
+
+.video-filters select {
+
+    background:
+        #181818;
+
+}
+
+
+.video-filters select:focus {
+
+    box-shadow:
+        0 0 0 2px
+        rgba(25, 118, 255, 0.12);
+
+}
+
+
+/* ======================================================
+   FOOTER
+====================================================== */
+
+footer {
+
+    position: relative;
+
+    padding-top:
+        45px;
+
+}
+
+
+footer::before {
+
+    content:
+        "FC ABIES";
+
+    display: block;
+
+    margin-bottom: 10px;
+
+    color:
+        #333;
+
+    font-size: 18px;
+
+    font-weight: 800;
+
+    letter-spacing:
+        0.15em;
+
+}
+
+
+/* ======================================================
+   MOBILE
+====================================================== */
+
+@media (max-width: 700px) {
+
+
+    .team-logo {
+
+        width: 38px;
+
+        height: 38px;
+
+    }
+
+
+    .hero {
+
+        min-height:
+            240px;
+
+        padding:
+            40px 15px;
+
+    }
+
+
+    .hero-content h1 {
+
+        font-size:
+            38px;
+
+    }
+
+
+    .hero-title {
+
+        font-size:
+            16px;
+
+        letter-spacing:
+            0.1em;
+
+    }
+
+
+    .hero-content p {
+
+        font-size:
+            11px;
+
+    }
+
+
+    section h2 {
+
+        gap: 8px;
+
+        font-size:
+            20px;
+
+    }
+
+
+    .section-subtitle {
+
+        font-size:
+            8px;
+
+    }
+
+
+    #latestVideo .video-info {
+
+        padding:
+            18px;
+
+    }
+
+
+    #latestVideo .video-opponent {
+
+        font-size:
+            15px;
+
+    }
+
+
+}
+
+
+/* ======================================================
+   SMALL MOBILE
+====================================================== */
+
+@media (max-width: 380px) {
+
+
+    .team-logo {
+
+        width: 34px;
+
+        height: 34px;
+
+    }
+
+
+    .hero-content h1 {
+
+        font-size:
+            34px;
+
+    }
+
+
+    .hero-title {
+
+        font-size:
+            14px;
+
+    }
+
+}
