@@ -1,26 +1,34 @@
 <!DOCTYPE html>
+
 <html lang="ja">
+
 <head>
 
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>FC Abies VIDEO LIBRARY</title>
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1.0"
+
+>
+
+<title>FC Abies C Team 動画ライブラリ</title>
 
 <!-- ==================================================
      FC Abies サイト情報
 ================================================== -->
 
 <meta
-    name="description"
-    content="FC Abies 2026 C Teamの試合動画をまとめた動画ライブラリです。"
+name="description"
+content="FC Abies 2026 C Teamの試合動画をまとめた動画ライブラリです。"
+
 >
 
 <meta
-    name="theme-color"
-    content="#1261d6"
->
+name="theme-color"
+content="#1261d6"
 
+>
 
 <!-- ブラウザアイコン -->
 
@@ -30,7 +38,6 @@
     href="logo.png"
 >
 
-
 <!-- スマホホーム画面用 -->
 
 <link
@@ -38,82 +45,454 @@
     href="logo.png"
 >
 
-
 <!-- ==================================================
      LINE・SNS共有用
 ================================================== -->
 
 <meta
-    property="og:type"
-    content="https://ika29akanaT.github.io/fc-abies-video/share.jpg"
+property="og:type"
+content="website"
+
 >
 
 <meta
-    property="og:title"
-    content="FC Abies C Team 動画ライブラリ"
+property="og:title"
+content="FC Abies C Team 動画ライブラリ"
+
 >
 
 <meta
-    property="og:description"
-    content="FC Abies 2026 C Teamの試合動画をまとめています。"
+property="og:description"
+content="FC Abies 2026 C Teamの試合動画をまとめています。"
+
 >
 
 <meta
-    property="og:image"
-    content="https://ika29akanaT.github.io/fc-abies-video/logo.png"
+property="og:image"
+content="https://ika29akanaT.github.io/fc-abies-video/logo.png"
+
 >
 
-<link rel="stylesheet" href="style.css">
+<!-- ==================================================
+     CSS
+================================================== -->
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link
+    rel="stylesheet"
+    href="style.css"
+>
 
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+<!-- Google Fonts -->
+
+<link
+    rel="preconnect"
+    href="https://fonts.googleapis.com"
+>
+
+<link
+    rel="preconnect"
+    href="https://fonts.gstatic.com"
+>
+
+<link
+    href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap"
+    rel="stylesheet"
+>
+
+<!-- ==================================================
+     パスワード画面用CSS
+================================================== -->
+
+<style>
+
+.password-screen {
+
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 99999;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 20px;
+
+    box-sizing: border-box;
+
+    background:
+        radial-gradient(
+            circle at center,
+            rgba(25, 118, 255, 0.14),
+            transparent 55%
+        ),
+        #0d0d0d;
+
+}
+
+
+.password-box {
+
+    width:
+        min(420px, 100%);
+
+    padding:
+        40px 28px;
+
+    box-sizing: border-box;
+
+    text-align: center;
+
+    border:
+        1px solid #2d2d2d;
+
+    border-radius:
+        16px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #1b1b1b,
+            #111111
+        );
+
+    box-shadow:
+        0 25px 70px
+        rgba(0, 0, 0, 0.55);
+
+}
+
+
+.password-logo {
+
+    width:
+        85px;
+
+    height:
+        85px;
+
+    object-fit:
+        contain;
+
+    margin-bottom:
+        12px;
+
+}
+
+
+.password-team {
+
+    color:
+        #4d9cff;
+
+    font-size:
+        10px;
+
+    font-weight:
+        700;
+
+    letter-spacing:
+        0.18em;
+
+}
+
+
+.password-title {
+
+    margin:
+        8px 0 0;
+
+    color:
+        #ffffff;
+
+    font-size:
+        24px;
+
+    font-weight:
+        700;
+
+    letter-spacing:
+        0.08em;
+
+}
+
+
+.password-message {
+
+    margin:
+        20px 0 6px;
+
+    color:
+        #dddddd;
+
+    font-size:
+        14px;
+
+}
+
+
+.password-submessage {
+
+    margin:
+        0 0 18px;
+
+    color:
+        #777777;
+
+    font-size:
+        11px;
+
+}
+
+
+.password-input {
+
+    width:
+        100%;
+
+    height:
+        46px;
+
+    box-sizing:
+        border-box;
+
+    padding:
+        0 15px;
+
+    border:
+        1px solid #3a3a3a;
+
+    border-radius:
+        8px;
+
+    outline:
+        none;
+
+    background:
+        #101010;
+
+    color:
+        #ffffff;
+
+    font-size:
+        14px;
+
+    text-align:
+        center;
+
+}
+
+
+.password-input:focus {
+
+    border-color:
+        #1261d6;
+
+    box-shadow:
+        0 0 0 2px
+        rgba(18, 97, 214, 0.15);
+
+}
+
+
+.password-button {
+
+    width:
+        100%;
+
+    height:
+        46px;
+
+    margin-top:
+        10px;
+
+    border:
+        none;
+
+    border-radius:
+        8px;
+
+    background:
+        #1261d6;
+
+    color:
+        #ffffff;
+
+    font-size:
+        14px;
+
+    font-weight:
+        700;
+
+    cursor:
+        pointer;
+
+}
+
+
+.password-button:hover {
+
+    opacity:
+        0.9;
+
+}
+
+
+.password-error {
+
+    display:
+        none;
+
+    margin:
+        12px 0 0;
+
+    color:
+        #ff6464;
+
+    font-size:
+        11px;
+
+}
+
+
+@media (max-width: 700px) {
+
+    .password-box {
+
+        padding:
+            35px 22px;
+
+    }
+
+
+    .password-logo {
+
+        width:
+            75px;
+
+        height:
+            75px;
+
+    }
+
+
+    .password-title {
+
+        font-size:
+            21px;
+
+    }
+
+}
+
+</style>
 
 </head>
 
 <body>
 
+<!-- ==================================================
+     パスワード画面
+================================================== -->
+
+<div
+    id="passwordScreen"
+    class="password-screen"
+>
+
+```
+<div class="password-box">
+
+    <img
+        src="logo.png"
+        alt="FC Abies"
+        class="password-logo"
+    >
+
+    <div class="password-team">
+        2026 C TEAM
+    </div>
+
+    <div class="password-title">
+        VIDEO LIBRARY
+    </div>
+
+    <p class="password-message">
+        チーム関係者限定サイトです
+    </p>
+
+    <p class="password-submessage">
+        パスワードを入力してください
+    </p>
+
+    <input
+        type="password"
+        id="sitePassword"
+        class="password-input"
+        placeholder="パスワード"
+        autocomplete="off"
+    >
+
+    <button
+        type="button"
+        id="passwordButton"
+        class="password-button"
+    >
+        入場する
+    </button>
+
+    <p
+        id="passwordError"
+        class="password-error"
+    >
+        パスワードが違います
+    </p>
+
+</div>
+```
+
+</div>
+
+<!-- ==================================================
+     ここから元のサイト
+================================================== -->
+
+<div id="siteContent">
+
 <header class="site-header">
 
-    <div class="header-inner">
+```
+<div class="header-inner">
 
-        <div class="logo">
+    <div class="logo">
 
-            <img
-                src="logo.png"
-                alt="FC Abies"
-                class="team-logo"
-            >
+        <img
+            src="logo.png"
+            alt="FC Abies"
+            class="team-logo"
+        >
 
-            <div class="logo-text">
+        <div class="logo-text">
 
-                <strong>
-                    FC Abies
-                </strong>
+            <strong>
+                FC Abies
+            </strong>
 
-                <span>
-                    2026 C Team
-                </span>
-
-            </div>
+            <span>
+                2026 C Team
+            </span>
 
         </div>
 
     </div>
 
-</header>
-
 </div>
+```
 
 </header>
-
-<div class="logo">
-
-⚽ FC Abies
-<span>2026 C Team</span>
-
-</div>
 
 <!-- ==================================================
      動画フィルター
@@ -121,103 +500,109 @@
 
 <div class="video-filter-area">
 
-    <div class="filter-search">
+```
+<div class="filter-search">
 
-        <input
-            type="search"
-            id="search"
-            placeholder="対戦相手・大会名などを検索..."
-            autocomplete="off"
-        >
-
-    </div>
-    
-    <div class="video-filters">
-
-        <select id="categoryFilter">
-
-            <option value="">
-                すべての大会
-            </option>
-
-        </select>
-
-
-        <select id="monthFilter">
-
-            <option value="">
-                すべての年月
-            </option>
-
-        </select>
-
-
-        <button
-            id="clearFilters"
-            type="button"
-        >
-            クリア
-        </button>
-
-    </div>
+    <input
+        type="search"
+        id="search"
+        placeholder="対戦相手・大会名などを検索..."
+        autocomplete="off"
+    >
 
 </div>
 
-</header>
+
+<div class="video-filters">
+
+    <select id="categoryFilter">
+
+        <option value="">
+            すべての大会
+        </option>
+
+    </select>
+
+
+    <select id="monthFilter">
+
+        <option value="">
+            すべての年月
+        </option>
+
+    </select>
+
+
+    <button
+        id="clearFilters"
+        type="button"
+    >
+        クリア
+    </button>
+
+</div>
+```
+
+</div>
 
 <main>
 
 <section class="hero">
 
-    <div class="hero-content">
+```
+<div class="hero-content">
 
-        <div class="hero-badge">
-            2026 SEASON
-        </div>
-
-        <h1>
-            FC ABIES
-        </h1>
-
-        <div class="hero-title">
-            VIDEO LIBRARY
-        </div>
-
-        <p>
-            Abies関係者のために作成した動画ライブラリになります</br>
-            相手チームの肖像権保護のため、関係者以外へのURLの共有はご遠慮ください
-        </p>
-
+    <div class="hero-badge">
+        2026 SEASON
     </div>
 
-</section>
-    
-<section>
+    <h1>
+        FC ABIES
+    </h1>
 
-<h2>
+    <div class="hero-title">
+        VIDEO LIBRARY
+    </div>
 
-最新動画
-
-</h2>
-
-<div id="latestVideo">
+    <p>
+        2026 C Team 試合動画
+    </p>
 
 </div>
+```
 
 </section>
 
 <section>
 
+```
 <h2>
+    最新動画
+</h2>
+
+<div id="latestVideo"></div>
+```
+
+</section>
+
+<section>
+
+```
+<h2>
+
     試合動画
+
     <span class="section-subtitle">
         MATCH VIDEOS
     </span>
+
 </h2>
 
-<div id="videoList" class="grid">
-
-</div>
+<div
+    id="videoList"
+    class="grid"
+></div>
+```
 
 </section>
 
@@ -225,21 +610,23 @@
 
 <footer>
 
-    <div class="footer-logo">
-        FC ABIES
-    </div>
+```
+<div class="footer-logo">
+    FC ABIES
+</div>
 
-    <div class="footer-team">
-        2026 C TEAM
-    </div>
+<div class="footer-team">
+    2026 C TEAM
+</div>
 
-    <div class="footer-title">
-        VIDEO LIBRARY
-    </div>
+<div class="footer-title">
+    VIDEO LIBRARY
+</div>
 
-    <div class="footer-copy">
-        © FC Abies
-    </div>
+<div class="footer-copy">
+    © FC Abies
+</div>
+```
 
 </footer>
 
@@ -253,41 +640,210 @@
     onclick="closeVideo()"
 >
 
-    <div
-        class="video-modal-content"
-        onclick="event.stopPropagation()"
+```
+<div
+    class="video-modal-content"
+    onclick="event.stopPropagation()"
+>
+
+    <button
+        class="video-close"
+        onclick="closeVideo()"
+        aria-label="動画を閉じる"
     >
+        ×
+    </button>
 
-        <button
-            class="video-close"
-            onclick="closeVideo()"
-            aria-label="動画を閉じる"
-        >
-            ×
-        </button>
+    <div class="video-player">
 
-        <div class="video-player">
-
-            <iframe
-                id="youtubePlayer"
-                src=""
-                title="FC Abies 試合動画"
-                frameborder="0"
-                allow="
-                    autoplay;
-                    encrypted-media;
-                    picture-in-picture;
-                    web-share
-                "
-                allowfullscreen
-            >
-            </iframe>
-
-        </div>
+        <iframe
+            id="youtubePlayer"
+            src=""
+            title="FC Abies 試合動画"
+            frameborder="0"
+            allow="
+                autoplay;
+                encrypted-media;
+                picture-in-picture;
+                web-share
+            "
+            allowfullscreen
+        ></iframe>
 
     </div>
 
 </div>
+```
+
+</div>
+
+</div>
+
+<!-- ==================================================
+     パスワード処理
+================================================== -->
+
+<script>
+
+const SITE_PASSWORD = "FCABIES2026";
+
+
+function checkSitePassword() {
+
+    const input =
+        document.getElementById(
+            "sitePassword"
+        );
+
+    const screen =
+        document.getElementById(
+            "passwordScreen"
+        );
+
+    const content =
+        document.getElementById(
+            "siteContent"
+        );
+
+    const error =
+        document.getElementById(
+            "passwordError"
+        );
+
+
+    if (
+        input.value ===
+        SITE_PASSWORD
+    ) {
+
+        sessionStorage.setItem(
+            "fcAbiesAuthenticated",
+            "true"
+        );
+
+
+        screen.style.display =
+            "none";
+
+
+        content.style.display =
+            "block";
+
+
+        /* パスワード認証後に動画を読み込む */
+
+        if (
+            typeof loadVideos ===
+            "function"
+        ) {
+
+            loadVideos();
+
+        }
+
+
+    } else {
+
+        error.style.display =
+            "block";
+
+        input.value =
+            "";
+
+        input.focus();
+
+    }
+
+}
+
+
+/* ==================================================
+   初期表示
+================================================== */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function() {
+
+        const screen =
+            document.getElementById(
+                "passwordScreen"
+            );
+
+        const content =
+            document.getElementById(
+                "siteContent"
+            );
+
+        const input =
+            document.getElementById(
+                "sitePassword"
+            );
+
+        const button =
+            document.getElementById(
+                "passwordButton"
+            );
+
+
+        const authenticated =
+            sessionStorage.getItem(
+                "fcAbiesAuthenticated"
+            );
+
+
+        if (
+            authenticated ===
+            "true"
+        ) {
+
+            screen.style.display =
+                "none";
+
+            content.style.display =
+                "block";
+
+        } else {
+
+            screen.style.display =
+                "flex";
+
+            content.style.display =
+                "none";
+
+        }
+
+
+        button.addEventListener(
+            "click",
+            checkSitePassword
+        );
+
+
+        input.addEventListener(
+            "keydown",
+            function(event) {
+
+                if (
+                    event.key ===
+                    "Enter"
+                ) {
+
+                    checkSitePassword();
+
+                }
+
+            }
+        );
+
+    }
+);
+
+</script>
+
+<!-- ==================================================
+     元のJavaScript
+================================================== -->
 
 <script src="script.js"></script>
 
