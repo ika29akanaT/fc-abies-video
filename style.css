@@ -2650,3 +2650,88 @@ footer::before {
     }
 
 }
+/* ======================================================
+   FOOTER FINAL
+====================================================== */
+
+footer {
+
+    margin-top: 80px;
+
+    padding:
+        45px 20px 35px;
+
+    text-align: center;
+
+    border-top:
+        1px solid #242424;
+
+}
+
+
+.footer-logo {
+
+    color:
+        #fff;
+
+    font-size:
+        20px;
+
+    font-weight:
+        800;
+
+    letter-spacing:
+        0.15em;
+
+}
+
+
+.footer-team {
+
+    margin-top:
+        5px;
+
+    color:
+        var(--blue-light);
+
+    font-size:
+        10px;
+
+    font-weight:
+        700;
+
+    letter-spacing:
+        0.12em;
+
+}
+
+
+.footer-title {
+
+    margin-top:
+        18px;
+
+    color:
+        #555;
+
+    font-size:
+        9px;
+
+    letter-spacing:
+        0.18em;
+
+}
+
+
+.footer-copy {
+
+    margin-top:
+        20px;
+
+    color:
+        #444;
+
+    font-size:
+        9px;
+
+}
