@@ -1122,3 +1122,810 @@ footer {
     }
 
 }
+/* ======================================================
+   FC Abies Design Upgrade
+   Version 6
+====================================================== */
+
+
+/* ======================================================
+   HEADER
+====================================================== */
+
+.site-header {
+
+    position: sticky;
+
+    top: 0;
+
+    z-index: 1000;
+
+    height: 68px;
+
+    background:
+        rgba(15, 15, 15, 0.96);
+
+    border-bottom:
+        1px solid #292929;
+
+    backdrop-filter:
+        blur(12px);
+
+}
+
+
+.header-inner {
+
+    width:
+        min(1400px, calc(100% - 40px));
+
+    height: 100%;
+
+    margin:
+        0 auto;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 30px;
+
+}
+
+
+/* ======================================================
+   LOGO
+====================================================== */
+
+.logo {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    flex-shrink: 0;
+
+}
+
+
+.logo-mark {
+
+    width: 40px;
+
+    height: 40px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--blue),
+            #0d55c9
+        );
+
+    font-size: 20px;
+
+    box-shadow:
+        0 4px 15px
+        rgba(25, 118, 255, 0.3);
+
+}
+
+
+.logo-text {
+
+    display: flex;
+
+    flex-direction: column;
+
+    line-height: 1.2;
+
+}
+
+
+.logo-text strong {
+
+    font-size: 18px;
+
+    letter-spacing:
+        0.02em;
+
+}
+
+
+.logo-text span {
+
+    margin-top: 3px;
+
+    color:
+        #888;
+
+    font-size: 10px;
+
+}
+
+
+/* ======================================================
+   HEADER SEARCH
+====================================================== */
+
+.header-search {
+
+    flex: 1;
+
+    max-width: 550px;
+
+}
+
+
+.header-search #search {
+
+    width: 100%;
+
+    height: 42px;
+
+    margin: 0;
+
+}
+
+
+/* ======================================================
+   HERO
+====================================================== */
+
+.hero {
+
+    padding:
+        55px 10px 35px;
+
+}
+
+
+.hero-label {
+
+    display: inline-block;
+
+    margin-bottom: 10px;
+
+    padding:
+        4px 12px;
+
+    border:
+        1px solid
+        rgba(25, 118, 255, 0.45);
+
+    border-radius: 20px;
+
+    color:
+        var(--blue-light);
+
+    background:
+        rgba(25, 118, 255, 0.08);
+
+    font-size: 11px;
+
+    font-weight: 700;
+
+    letter-spacing:
+        0.15em;
+
+}
+
+
+.hero h1 {
+
+    margin-bottom: 0;
+
+    font-size:
+        clamp(34px, 5vw, 52px);
+
+    letter-spacing:
+        0.06em;
+
+}
+
+
+.hero h1::after {
+
+    width: 45px;
+
+    height: 3px;
+
+    margin-top: 15px;
+
+}
+
+
+.hero p {
+
+    margin-top: 15px;
+
+    color:
+        #999;
+
+}
+
+
+/* ======================================================
+   LATEST VIDEO
+====================================================== */
+
+#latestVideo {
+
+    margin-bottom: 55px;
+
+}
+
+
+#latestVideo::before {
+
+    content:
+        "LATEST VIDEO";
+
+    display: block;
+
+    margin-bottom: 12px;
+
+    color:
+        var(--blue-light);
+
+    font-size: 11px;
+
+    font-weight: 700;
+
+    letter-spacing:
+        0.14em;
+
+}
+
+
+#latestVideo .video-card {
+
+    max-width: 100%;
+
+    display: grid;
+
+    grid-template-columns:
+        minmax(0, 1.65fr)
+        minmax(280px, 0.75fr);
+
+    gap: 0;
+
+    background:
+        #181818;
+
+    border:
+        1px solid #282828;
+
+}
+
+
+#latestVideo .thumbnail {
+
+    border-radius:
+        var(--radius) 0 0 var(--radius);
+
+}
+
+
+#latestVideo .video-info {
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+
+    padding: 28px;
+
+}
+
+
+#latestVideo .video-info h3 {
+
+    font-size: 22px;
+
+}
+
+
+#latestVideo .watch-btn {
+
+    width: fit-content;
+
+}
+
+
+/* ======================================================
+   NORMAL VIDEO GRID
+====================================================== */
+
+.grid {
+
+    grid-template-columns:
+        repeat(3, minmax(0, 1fr));
+
+    gap:
+        25px 20px;
+
+}
+
+
+.video-card {
+
+    border:
+        1px solid transparent;
+
+}
+
+
+.video-card:hover {
+
+    border-color:
+        #303030;
+
+}
+
+
+/* ======================================================
+   THUMBNAIL
+====================================================== */
+
+.thumbnail {
+
+    background:
+        linear-gradient(
+            135deg,
+            #202020,
+            #111
+        );
+
+}
+
+
+/* ======================================================
+   PLAY BUTTON
+====================================================== */
+
+.play-button {
+
+    width: 58px;
+
+    height: 58px;
+
+    background:
+        rgba(25, 118, 255, 0.95);
+
+    box-shadow:
+        0 8px 30px
+        rgba(0, 0, 0, 0.55);
+
+}
+
+
+/* ======================================================
+   FILTER AREA
+====================================================== */
+
+.video-filters {
+
+    justify-content:
+        flex-start;
+
+    margin:
+        5px 0 35px;
+
+}
+
+
+.video-filters select {
+
+    min-width: 170px;
+
+}
+
+
+#clearFilters {
+
+    margin-left: auto;
+
+}
+
+
+/* ======================================================
+   SECTION TITLE
+====================================================== */
+
+section h2 {
+
+    font-size: 23px;
+
+}
+
+
+/* ======================================================
+   MOBILE DESIGN
+====================================================== */
+
+@media (max-width: 700px) {
+
+
+    /* --------------------------------
+       HEADER
+    -------------------------------- */
+
+    .site-header {
+
+        height: auto;
+
+        padding:
+            10px 0;
+
+    }
+
+
+    .header-inner {
+
+        width:
+            calc(100% - 24px);
+
+        display: grid;
+
+        grid-template-columns:
+            auto 1fr;
+
+        gap:
+            10px;
+
+    }
+
+
+    .logo {
+
+        gap: 7px;
+
+    }
+
+
+    .logo-mark {
+
+        width: 36px;
+
+        height: 36px;
+
+        font-size: 17px;
+
+    }
+
+
+    .logo-text strong {
+
+        font-size: 16px;
+
+    }
+
+
+    .logo-text span {
+
+        font-size: 9px;
+
+    }
+
+
+    .header-search {
+
+        max-width: none;
+
+    }
+
+
+    .header-search #search {
+
+        height: 38px;
+
+        font-size: 13px;
+
+    }
+
+
+    /* --------------------------------
+       HERO
+    -------------------------------- */
+
+    .hero {
+
+        padding:
+            35px 5px 25px;
+
+    }
+
+
+    .hero-label {
+
+        font-size: 9px;
+
+    }
+
+
+    .hero h1 {
+
+        font-size:
+            29px;
+
+        letter-spacing:
+            0.04em;
+
+    }
+
+
+    .hero p {
+
+        margin-top: 12px;
+
+        font-size:
+            12px;
+
+    }
+
+
+    /* --------------------------------
+       FILTER
+    -------------------------------- */
+
+    .video-filters {
+
+        display:
+            grid;
+
+        grid-template-columns:
+            1fr 1fr;
+
+        gap: 8px;
+
+        margin:
+            5px 0 28px;
+
+    }
+
+
+    .video-filters select {
+
+        width: 100%;
+
+        height: 40px;
+
+        min-width: 0;
+
+        font-size: 12px;
+
+    }
+
+
+    #clearFilters {
+
+        grid-column:
+            1 / -1;
+
+        width: 100%;
+
+        height: 38px;
+
+        margin: 0;
+
+    }
+
+
+    /* --------------------------------
+       LATEST VIDEO
+    -------------------------------- */
+
+    #latestVideo {
+
+        margin-bottom:
+            40px;
+
+    }
+
+
+    #latestVideo::before {
+
+        margin-bottom:
+            10px;
+
+        font-size:
+            10px;
+
+    }
+
+
+    #latestVideo .video-card {
+
+        display:
+            block;
+
+    }
+
+
+    #latestVideo .thumbnail {
+
+        border-radius:
+            var(--radius)
+            var(--radius)
+            0
+            0;
+
+    }
+
+
+    #latestVideo .video-info {
+
+        padding:
+            16px;
+
+    }
+
+
+    #latestVideo .video-info h3 {
+
+        font-size:
+            18px;
+
+    }
+
+
+    #latestVideo .watch-btn {
+
+        width: 100%;
+
+    }
+
+
+    /* --------------------------------
+       VIDEO GRID
+    -------------------------------- */
+
+    .grid {
+
+        grid-template-columns:
+            1fr;
+
+        gap:
+            18px;
+
+    }
+
+
+    .video-card {
+
+        border-radius:
+            12px;
+
+    }
+
+
+    .video-info {
+
+        padding:
+            13px 14px 15px;
+
+    }
+
+
+    .video-info h3 {
+
+        font-size:
+            15px;
+
+    }
+
+
+    .video-opponent {
+
+        font-size:
+            13px;
+
+    }
+
+
+    .video-meta {
+
+        font-size:
+            11px;
+
+    }
+
+
+    /* --------------------------------
+       PLAY BUTTON
+    -------------------------------- */
+
+    .play-button {
+
+        width:
+            54px;
+
+        height:
+            54px;
+
+        font-size:
+            21px;
+
+        opacity:
+            1;
+
+        transform:
+            translate(-50%, -50%)
+            scale(0.9);
+
+    }
+
+
+    /* --------------------------------
+       FOOTER
+    -------------------------------- */
+
+    footer {
+
+        margin-top:
+            55px;
+
+        padding:
+            28px 15px;
+
+        font-size:
+            10px;
+
+    }
+
+}
+
+
+/* ======================================================
+   VERY SMALL MOBILE
+====================================================== */
+
+@media (max-width: 380px) {
+
+
+    .header-inner {
+
+        grid-template-columns:
+            1fr;
+
+    }
+
+
+    .logo {
+
+        justify-content:
+            center;
+
+    }
+
+
+    .header-search {
+
+        width:
+            100%;
+
+    }
+
+
+    .hero h1 {
+
+        font-size:
+            26px;
+
+    }
+
+
+}
