@@ -97,7 +97,50 @@ placeholder="対戦相手・大会名で検索">
      動画フィルター
 ================================================== -->
 
-<div class="video-filters">
+<div class="video-filter-area">
+
+    <div class="filter-search">
+
+        <input
+            type="search"
+            id="search"
+            placeholder="対戦相手・大会名などを検索..."
+            autocomplete="off"
+        >
+
+    </div>
+
+
+    <div class="video-filters">
+
+        <select id="categoryFilter">
+
+            <option value="">
+                すべての大会
+            </option>
+
+        </select>
+
+
+        <select id="monthFilter">
+
+            <option value="">
+                すべての年月
+            </option>
+
+        </select>
+
+
+        <button
+            id="clearFilters"
+            type="button"
+        >
+            クリア
+        </button>
+
+    </div>
+
+</div>
 
     <select id="categoryFilter">
         <option value="">すべての大会</option>
