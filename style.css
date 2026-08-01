@@ -3268,3 +3268,69 @@ PASSWORD MOBILE
     }
 
 }
+/* ======================================================
+   PC・iPad：検索・フィルターを横並びにする
+====================================================== */
+
+@media (min-width: 701px) {
+
+    .video-filter-area {
+
+        display: flex;
+
+        align-items: center;
+
+        gap: 12px;
+
+        width: 100%;
+
+        box-sizing: border-box;
+
+    }
+
+
+    .filter-search {
+
+        flex: 1;
+
+        min-width: 220px;
+
+    }
+
+
+    .filter-search input {
+
+        width: 100%;
+
+        box-sizing: border-box;
+
+    }
+
+
+    .video-filters {
+
+        display: flex;
+
+        align-items: center;
+
+        gap: 10px;
+
+        flex-shrink: 0;
+
+    }
+
+
+    .video-filters select {
+
+        min-width: 170px;
+
+    }
+
+
+    #clearFilters {
+
+        flex-shrink: 0;
+
+    }
+
+}
