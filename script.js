@@ -701,6 +701,11 @@ function setupCategoryFilter(
         return;
 
     }
+   select.innerHTML = `
+    <option value="">
+        すべての大会
+    </option>
+`;
 
 
     const categories =
@@ -758,6 +763,11 @@ function setupMonthFilter(
         return;
 
     }
+   select.innerHTML = `
+    <option value="">
+        すべての年月
+    </option>
+`;
 
 
     const months =
