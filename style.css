@@ -312,3 +312,61 @@ footer::before{content:"FC ABIES";display:block;margin-bottom:10px;color:#333;fo
     }
 
 }
+/* ======================================================
+   PC・タブレット フィルター幅を統一
+====================================================== */
+
+.video-filters {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.video-filters select {
+    width: 256px;
+    min-width: 256px;
+    height: 54px;
+    box-sizing: border-box;
+}
+
+.video-filters #monthFilter {
+    width: 256px;
+    min-width: 256px;
+}
+
+
+/* クリアボタンは右側の位置を維持 */
+
+.video-filters #clearFilters {
+    margin-left: auto;
+}
+
+
+/* ======================================================
+   スマホ
+====================================================== */
+
+@media (max-width: 700px) {
+
+    .video-filters {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .video-filters select {
+        width: calc(50% - 5px);
+        min-width: 0;
+    }
+
+    .video-filters #monthFilter {
+        width: calc(50% - 5px);
+        min-width: 0;
+    }
+
+    .video-filters #clearFilters {
+        margin-left: 0;
+        width: 100%;
+    }
+
+}
