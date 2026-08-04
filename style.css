@@ -3555,3 +3555,101 @@ PASSWORD MOBILE
     }
 
 }
+/* ======================================================
+   FC Abies
+   スマホ：フィルター幅の最終調整
+====================================================== */
+
+@media screen and (max-width: 700px) {
+
+    /* フィルター全体 */
+    .video-filter-area {
+        display: block !important;
+
+        width: 100% !important;
+        max-width: 100% !important;
+        min-width: 0 !important;
+
+        margin: 0 !important;
+        padding: 14px 12px !important;
+
+        box-sizing: border-box !important;
+
+        overflow: hidden !important;
+    }
+
+
+    /* 検索窓 */
+    .filter-search {
+        display: block !important;
+
+        width: 100% !important;
+        max-width: 100% !important;
+        min-width: 0 !important;
+
+        margin: 0 0 12px 0 !important;
+
+        box-sizing: border-box !important;
+    }
+
+
+    .filter-search input {
+        display: block !important;
+
+        width: 100% !important;
+        max-width: 100% !important;
+        min-width: 0 !important;
+
+        margin: 0 !important;
+
+        box-sizing: border-box !important;
+    }
+
+
+    /* フィルター */
+    .video-filters {
+        display: flex !important;
+
+        width: 100% !important;
+        max-width: 100% !important;
+        min-width: 0 !important;
+
+        margin: 0 !important;
+        padding: 0 !important;
+
+        box-sizing: border-box !important;
+
+        gap: 8px !important;
+
+        flex-wrap: wrap !important;
+    }
+
+
+    /* 大会・年月 */
+    .video-filters select {
+        flex: 1 1 calc(50% - 4px) !important;
+
+        width: calc(50% - 4px) !important;
+        max-width: calc(50% - 4px) !important;
+        min-width: 0 !important;
+
+        margin: 0 !important;
+
+        box-sizing: border-box !important;
+    }
+
+
+    /* クリア */
+    .video-filters #clearFilters {
+        flex: 0 0 100% !important;
+
+        width: 100% !important;
+        max-width: 100% !important;
+        min-width: 0 !important;
+
+        margin: 0 !important;
+
+        box-sizing: border-box !important;
+    }
+
+}
