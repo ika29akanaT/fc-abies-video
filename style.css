@@ -370,3 +370,43 @@ footer::before{content:"FC ABIES";display:block;margin-bottom:10px;color:#333;fo
     }
 
 }
+/* ======================================================
+   PC・iPad：クリアボタンを検索欄と同じ幅にする
+====================================================== */
+
+@media (min-width: 701px) {
+
+    .video-filter-area {
+        position: relative;
+    }
+
+    .video-filters {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        flex-wrap: wrap;
+    }
+
+    /* 大会・年月 */
+    .video-filters select {
+        width: 256px;
+        min-width: 256px;
+    }
+
+    .video-filters #monthFilter {
+        width: 256px;
+        min-width: 256px;
+    }
+
+    /* クリアボタン */
+    .video-filters #clearFilters {
+        width: 520px;
+        min-width: 520px;
+        height: 54px;
+
+        margin-left: 0;
+
+        box-sizing: border-box;
+    }
+
+}
