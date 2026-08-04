@@ -708,6 +708,9 @@ content="https://ika29akanaT.github.io/fc-abies-video/share.png"
 <!-- ==================================================
      パスワード処理
 ================================================== -->
+<!-- ==================================================
+     パスワード処理
+================================================== -->
 
 <script>
 
@@ -749,19 +752,22 @@ function checkSitePassword() {
 
 
         screen.style.display =
-               "none";
-          
-          content.style.display =
-              "block";
-          
-          content.style.width =
-              "100%";
-          
-          content.style.maxWidth =
-              "100%";
-          
-          content.style.boxSizing =
-              "border-box";
+            "none";
+
+        content.style.display =
+            "block";
+
+
+        /* スマホ・PC共通でサイト幅を正常化 */
+
+        content.style.width =
+            "100%";
+
+        content.style.maxWidth =
+            "100%";
+
+        content.style.boxSizing =
+            "border-box";
 
 
         /* パスワード認証後に動画を読み込む */
@@ -825,27 +831,26 @@ document.addEventListener(
                 "fcAbiesAuthenticated"
             );
 
-     if (
-         authenticated ===
-         "true"
-     ) {
-     
-         screen.style.display =
-             "none";
-     
-         content.style.display =
-             "block";
-     
-         content.style.width =
-             "100%";
-     
-         content.style.maxWidth =
-             "100%";
-     
-         content.style.boxSizing =
-             "border-box";
 
-}
+        if (
+            authenticated ===
+            "true"
+        ) {
+
+            screen.style.display =
+                "none";
+
+            content.style.display =
+                "block";
+
+            content.style.width =
+                "100%";
+
+            content.style.maxWidth =
+                "100%";
+
+            content.style.boxSizing =
+                "border-box";
 
 
         } else {
@@ -885,7 +890,6 @@ document.addEventListener(
 );
 
 </script>
-
 <!-- ==================================================
      元のJavaScript
 ================================================== -->
