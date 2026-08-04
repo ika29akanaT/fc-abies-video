@@ -3334,4 +3334,224 @@ PASSWORD MOBILE
     }
 
 }
+/* ======================================================
+   FC Abies
+   スマホ横切れ 最終修正
+   ※このブロックは必ずCSSの一番最後
+====================================================== */
 
+@media screen and (max-width: 700px) {
+
+    html,
+    body {
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+        margin: 0;
+        padding: 0;
+        overflow-x: hidden;
+    }
+
+
+    #siteContent {
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        overflow-x: hidden;
+    }
+
+
+    /* --------------------------------
+       ヘッダー
+    -------------------------------- */
+
+    #siteContent .site-header {
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+        box-sizing: border-box;
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+
+
+    #siteContent .header-inner {
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+        box-sizing: border-box;
+    }
+
+
+    /* --------------------------------
+       フィルターエリア
+    -------------------------------- */
+
+    #siteContent .video-filter-area {
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+        margin-left: 0;
+        margin-right: 0;
+        padding-left: 12px;
+        padding-right: 12px;
+        box-sizing: border-box;
+        overflow: hidden;
+    }
+
+
+    #siteContent .filter-search {
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+        box-sizing: border-box;
+    }
+
+
+    #siteContent .filter-search input {
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+        box-sizing: border-box;
+    }
+
+
+    #siteContent .video-filters {
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+        box-sizing: border-box;
+    }
+
+
+    #siteContent .video-filters select {
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+        box-sizing: border-box;
+    }
+
+
+    #siteContent #clearFilters {
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+        box-sizing: border-box;
+    }
+
+
+    /* --------------------------------
+       メイン
+    -------------------------------- */
+
+    #siteContent main {
+        width: calc(100% - 24px);
+        max-width: calc(100% - 24px);
+        min-width: 0;
+        margin-left: 12px;
+        margin-right: 12px;
+        box-sizing: border-box;
+        overflow: hidden;
+    }
+
+
+    /* --------------------------------
+       ヒーロー
+    -------------------------------- */
+
+    #siteContent .hero {
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+        box-sizing: border-box;
+        overflow: hidden;
+    }
+
+
+    #siteContent .hero-content {
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+        box-sizing: border-box;
+    }
+
+
+    /* --------------------------------
+       お知らせ
+    -------------------------------- */
+
+    #siteContent .notice-section {
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+        box-sizing: border-box;
+    }
+
+
+    #siteContent .notice-box {
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+        box-sizing: border-box;
+    }
+
+
+    #siteContent .notice-content {
+        min-width: 0;
+        max-width: 100%;
+        overflow-wrap: anywhere;
+    }
+
+
+    /* --------------------------------
+       動画
+    -------------------------------- */
+
+    #siteContent #latestVideo,
+    #siteContent .grid {
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+        box-sizing: border-box;
+    }
+
+
+    #siteContent .video-card {
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+        box-sizing: border-box;
+    }
+
+
+    #siteContent .video-info {
+        min-width: 0;
+        max-width: 100%;
+        box-sizing: border-box;
+    }
+
+
+    #siteContent .video-info h3,
+    #siteContent .video-opponent,
+    #siteContent .video-meta {
+        max-width: 100%;
+        overflow-wrap: anywhere;
+    }
+
+
+    /* --------------------------------
+       フッター
+    -------------------------------- */
+
+    #siteContent footer {
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+        box-sizing: border-box;
+        overflow: hidden;
+    }
+
+}
