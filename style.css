@@ -3334,3 +3334,55 @@ PASSWORD MOBILE
     }
 
 }
+/* ======================================================
+   スマホ：パスワード解除後の表示幅調整
+====================================================== */
+
+@media (max-width: 700px) {
+
+    html,
+    body {
+        width: 100%;
+        max-width: 100%;
+        overflow-x: hidden;
+    }
+
+    #siteContent {
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
+    }
+
+    .site-header,
+    main,
+    footer {
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
+    }
+
+    .video-filter-area {
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
+    }
+
+    .hero {
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
+    }
+
+    .notice-section {
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
+    }
+
+    .grid {
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
+    }
+
+}
