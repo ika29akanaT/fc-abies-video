@@ -226,3 +226,89 @@ footer::before{content:"FC ABIES";display:block;margin-bottom:10px;color:#333;fo
 @media (prefers-reduced-motion:reduce){
  *,*::before,*::after{scroll-behavior:auto!important;transition:none!important;animation:none!important}
 }
+/* ======================================================
+   PC・タブレット フィルター調整
+====================================================== */
+
+/* 検索欄 */
+.filter-search {
+    width: 100%;
+    max-width: 520px;
+    box-sizing: border-box;
+}
+
+.filter-search input {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+
+/* ======================================================
+   動画を見るボタン
+====================================================== */
+
+.watch-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    width: auto;
+    min-width: 130px;
+    height: 40px;
+
+    padding: 0 18px;
+
+    border: 1px solid #1261d6;
+    border-radius: 8px;
+
+    background: #1261d6;
+    color: #ffffff;
+
+    font-size: 14px;
+    font-weight: 700;
+
+    line-height: 1;
+    text-decoration: none;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        border-color 0.2s ease,
+        transform 0.2s ease;
+}
+
+.watch-btn:hover {
+    background: #0d4fae;
+    border-color: #0d4fae;
+    transform: translateY(-1px);
+}
+
+.watch-btn:active {
+    transform: translateY(0);
+}
+
+
+/* ======================================================
+   スマホ
+====================================================== */
+
+@media (max-width: 700px) {
+
+    .filter-search {
+        width: 100%;
+        max-width: none;
+    }
+
+    .filter-search input {
+        width: 100%;
+    }
+
+    .watch-btn {
+        min-width: 120px;
+        height: 40px;
+        padding: 0 16px;
+        font-size: 14px;
+    }
+
+}
