@@ -410,3 +410,34 @@ footer::before{content:"FC ABIES";display:block;margin-bottom:10px;color:#333;fo
     }
 
 }
+/* ==================================================
+   PC・iPad：クリアボタンをプルダウンの下へ移動
+   ※スマホの表示は変更しない
+================================================== */
+
+@media (min-width: 701px) {
+
+    .video-filter-area {
+        display: block;
+    }
+
+    .filter-search {
+        width: 520px;
+        max-width: 100%;
+        margin-bottom: 10px;
+    }
+
+    .video-filters {
+        display: grid;
+        grid-template-columns: 256px 170px;
+        gap: 10px;
+        align-items: center;
+    }
+
+    .video-filters #clearFilters {
+        grid-column: 1;
+        width: 100%;
+        margin-top: 0;
+    }
+
+}
