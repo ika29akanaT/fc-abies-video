@@ -218,7 +218,7 @@ def main():
     )
 
     send_to_apps_script({
-        "secret": "FC_ABIES_UPDATE_2026",
+        "secret": os.environ["UPDATE_SECRET"],
         "views": update_data
     })
 
