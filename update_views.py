@@ -217,9 +217,10 @@ def main():
         "Googleスプレッドシートを更新します..."
     )
 
-    send_to_apps_script(
-        update_data
-    )
+    send_to_apps_script({
+        "secret": "FC_ABIES_UPDATE_2026",
+        "views": update_data
+    })
 
     print(
         "再生回数の更新が完了しました！"
