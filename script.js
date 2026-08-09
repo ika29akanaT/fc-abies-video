@@ -272,31 +272,37 @@ function parseCSV(csv) {
    const youtubeIndex =
        headers.findIndex(header =>
            header === "動画URL"
-    );
-
-
+   );
+   const viewCountIndex =
+      headers.findIndex(header =>
+         header === "再生回数"
+   );
+   
     return rows
         .slice(1)
         .map(row => {
 
-            return {
+      return {
 
-                date:
-                    row[dateIndex] || "",
+       date:
+           row[dateIndex] || "",
+   
+       category:
+           row[categoryIndex] || "",
+   
+       opponent:
+           row[opponentIndex] || "",
+   
+       venue:
+           row[venueIndex] || "",
+   
+       youtube:
+           row[youtubeIndex] || "",
+   
+       viewCount:
+           row[viewCountIndex] || "0"
 
-                category:
-                    row[categoryIndex] || "",
-
-                opponent:
-                    row[opponentIndex] || "",
-
-                venue:
-                    row[venueIndex] || "",
-
-                youtube:
-                    row[youtubeIndex] || ""
-
-            };
+   };
 
         })
         .filter(video =>
@@ -455,16 +461,21 @@ function createVideoCard(video) {
 
                 <div class="video-meta">
 
-                    <span>
-                        📅 ${escapeHTML(video.date)}
-                    </span>
-
-                    <span>
-                        📍 ${escapeHTML(video.venue)}
-                    </span>
-
-                </div>
-
+                   <span>
+                       📅 ${escapeHTML(video.date)}
+                   </span>
+               
+                   <span>
+                       📍 ${escapeHTML(video.venue)}
+                   </span>
+               
+               </div>
+               
+               <div class="video-views">
+               
+                   👁 ${formatViewCount(video.viewCount)}回再生
+               
+               </div>
 
                 <button
                     class="watch-btn"
@@ -1025,6 +1036,39 @@ function updateFilterResult(
         message,
         videoList
     );
+
+}
+/* ======================================================
+   再生回数表示
+====================================================== */
+
+function formatViewCount(value) {
+
+    if (
+        value === undefined ||
+        value === null ||
+        value === ""
+    ) {
+
+        return "0";
+
+    }
+
+    const number =
+        Number(
+            String(value)
+                .replace(/,/g, "")
+        );
+
+    if (
+        isNaN(number)
+    ) {
+
+        return "0";
+
+    }
+
+    return number.toLocaleString("ja-JP");
 
 }
 /* ======================================================
