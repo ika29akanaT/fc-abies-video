@@ -441,3 +441,18 @@ footer::before{content:"FC ABIES";display:block;margin-bottom:10px;color:#333;fo
     }
 
 }
+/* ======================================================
+   再生回数
+====================================================== */
+
+.video-views {
+
+    margin-top: 8px;
+
+    color: #777;
+
+    font-size: 12px;
+
+    font-weight: 500;
+
+}
