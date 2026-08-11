@@ -22,10 +22,6 @@ async function loadVideos() {
     const container =
         document.getElementById("videoList");
 
-    const latestContainer =
-        document.getElementById("latestVideo");
-
-
     if (container) {
 
         container.innerHTML =
@@ -33,12 +29,12 @@ async function loadVideos() {
 
     }
 
-
     try {
 
         const response =
-            await fetch(SHEET_URL + "&t=" + Date.now());
-
+            await fetch(
+                SHEET_URL + "&t=" + Date.now()
+            );
 
         if (!response.ok) {
 
@@ -48,10 +44,8 @@ async function loadVideos() {
 
         }
 
-
         const csvText =
             await response.text();
-
 
         const videos =
             parseCSV(csvText);
@@ -77,7 +71,7 @@ async function loadVideos() {
         displayVideos(videos);
 
 
-        /* 検索機能 */
+        /* 検索・フィルター */
 
         setupSearch(videos);
 
@@ -85,7 +79,6 @@ async function loadVideos() {
     } catch (error) {
 
         console.error(error);
-
 
         if (container) {
 
@@ -167,7 +160,9 @@ function parseCSV(csv) {
             !insideQuotes
         ) {
 
-            row.push(value.trim());
+            row.push(
+                value.trim()
+            );
 
             value = "";
 
@@ -192,18 +187,22 @@ function parseCSV(csv) {
 
             }
 
-
-            row.push(value.trim());
+            row.push(
+                value.trim()
+            );
 
             value = "";
 
 
-            if (row.some(cell => cell !== "")) {
+            if (
+                row.some(
+                    cell => cell !== ""
+                )
+            ) {
 
                 rows.push(row);
 
             }
-
 
             row = [];
 
@@ -219,11 +218,20 @@ function parseCSV(csv) {
 
     /* 最後の行 */
 
-    if (value !== "" || row.length > 0) {
+    if (
+        value !== "" ||
+        row.length > 0
+    ) {
 
-        row.push(value.trim());
+        row.push(
+            value.trim()
+        );
 
-        if (row.some(cell => cell !== "")) {
+        if (
+            row.some(
+                cell => cell !== ""
+            )
+        ) {
 
             rows.push(row);
 
@@ -242,71 +250,86 @@ function parseCSV(csv) {
     /* 1行目を見出しとして使用 */
 
     const headers =
-    rows[0].map(header =>
-        header
-            .replace(/^\uFEFF/, "")
-            .trim()
-    );
+        rows[0].map(
+            header =>
+                header
+                    .replace(/^\uFEFF/, "")
+                    .trim()
+        );
 
 
     const dateIndex =
-       headers.findIndex(header =>
-           header === "日付"
-    );
+        headers.findIndex(
+            header =>
+                header === "日付"
+        );
 
-   const categoryIndex =
-       headers.findIndex(header =>
-           header === "大会"
-    );
 
-   const opponentIndex =
-       headers.findIndex(header =>
-           header === "対戦相手"
-    );
+    const categoryIndex =
+        headers.findIndex(
+            header =>
+                header === "大会"
+        );
 
-   const venueIndex =
-       headers.findIndex(header =>
-           header === "会場"
-    );
 
-   const youtubeIndex =
-       headers.findIndex(header =>
-           header === "動画URL"
-   );
-   const viewCountIndex =
-      headers.findIndex(header =>
-         header === "再生回数"
-   );
-   
+    const opponentIndex =
+        headers.findIndex(
+            header =>
+                header === "対戦相手"
+        );
+
+
+    const venueIndex =
+        headers.findIndex(
+            header =>
+                header === "会場"
+        );
+
+
+    const youtubeIndex =
+        headers.findIndex(
+            header =>
+                header === "動画URL"
+        );
+
+
+    const viewCountIndex =
+        headers.findIndex(
+            header =>
+                header === "再生回数"
+        );
+
+
     return rows
         .slice(1)
         .map(row => {
 
-      return {
+            return {
 
-       date:
-           row[dateIndex] || "",
-   
-       category:
-           row[categoryIndex] || "",
-   
-       opponent:
-           row[opponentIndex] || "",
-   
-       venue:
-           row[venueIndex] || "",
-   
-       youtube:
-           row[youtubeIndex] || "",
-   
-       viewCount:
-           row[viewCountIndex] || "0"
+                date:
+                    row[dateIndex] || "",
 
-   };
+                category:
+                    row[categoryIndex] || "",
+
+                opponent:
+                    row[opponentIndex] || "",
+
+                venue:
+                    row[venueIndex] || "",
+
+                youtube:
+                    row[youtubeIndex] || "",
+
+                viewCount:
+                    row[viewCountIndex] || "0"
+
+            };
 
         })
-        .filter(video =>
-            video.youtube !== ""
+        .filter(
+            video =>
+                video.youtube !== ""
         );
 
 }
@@ -326,7 +349,7 @@ function parseDate(dateString) {
 
 
     const normalized =
-        dateString
+        String(dateString)
             .replace(/\//g, "-")
             .replace(/\./g, "-");
 
@@ -364,11 +387,11 @@ function getYoutubeId(url) {
 
         /youtube\.com\/watch\?v=([^&]+)/,
 
-        /youtu\.be\/([^?]+)/,
+        /youtu\.be\/([^?&]+)/,
 
-        /youtube\.com\/embed\/([^?]+)/,
+        /youtube\.com\/embed\/([^?&]+)/,
 
-        /youtube\.com\/shorts\/([^?]+)/
+        /youtube\.com\/shorts\/([^?&]+)/
 
     ];
 
@@ -406,7 +429,47 @@ function getThumbnail(videoId) {
     }
 
 
-    return `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
+    return (
+        "https://img.youtube.com/vi/" +
+        videoId +
+        "/hqdefault.jpg"
+    );
+
+}
+
+
+/* ======================================================
+   再生回数を見やすく表示
+====================================================== */
+
+function formatViewCount(value) {
+
+    if (
+        value === undefined ||
+        value === null ||
+        value === ""
+    ) {
+
+        return "0";
+
+    }
+
+
+    const number =
+        Number(
+            String(value)
+                .replace(/,/g, "")
+        );
+
+
+    if (isNaN(number)) {
+
+        return "0";
+
+    }
+
+
+    return number.toLocaleString("ja-JP");
 
 }
 
@@ -414,10 +477,12 @@ function getThumbnail(videoId) {
 /* ======================================================
    動画カード
 ====================================================== */
+
 function createVideoCard(video) {
 
     const videoId =
         getYoutubeId(video.youtube);
+
 
     const thumbnail =
         getThumbnail(videoId);
@@ -455,27 +520,31 @@ function createVideoCard(video) {
                     ${escapeHTML(video.category)}
                 </h3>
 
+
                 <p class="video-opponent">
                     ⚽ vs ${escapeHTML(video.opponent)}
                 </p>
 
+
                 <div class="video-meta">
 
-                   <span>
-                       📅 ${escapeHTML(video.date)}
-                   </span>
-               
-                   <span>
-                       📍 ${escapeHTML(video.venue)}
-                   </span>
-               
-               </div>
-               
-               <div class="video-views">
-               
-                   👁 ${formatViewCount(video.viewCount)}回再生
-               
-               </div>
+                    <span>
+                        📅 ${escapeHTML(video.date)}
+                    </span>
+
+                    <span>
+                        📍 ${escapeHTML(video.venue)}
+                    </span>
+
+                </div>
+
+
+                <div class="video-views">
+
+                    👁 ${formatViewCount(video.viewCount)}回再生
+
+                </div>
+
 
                 <button
                     class="watch-btn"
@@ -492,6 +561,7 @@ function createVideoCard(video) {
 
 }
 
+
 /* ======================================================
    最新動画
 ====================================================== */
@@ -499,7 +569,9 @@ function createVideoCard(video) {
 function displayLatestVideo(videos) {
 
     const container =
-        document.getElementById("latestVideo");
+        document.getElementById(
+            "latestVideo"
+        );
 
 
     if (!container) {
@@ -529,7 +601,9 @@ function displayLatestVideo(videos) {
 
 
     container.innerHTML =
-        createVideoCard(videos[0]);
+        createVideoCard(
+            videos[0]
+        );
 
 }
 
@@ -541,7 +615,9 @@ function displayLatestVideo(videos) {
 function displayVideos(videos) {
 
     const container =
-        document.getElementById("videoList");
+        document.getElementById(
+            "videoList"
+        );
 
 
     if (!container) {
@@ -576,8 +652,9 @@ function displayVideos(videos) {
 
     container.innerHTML =
         videos
-            .map(video =>
-                createVideoCard(video)
+            .map(
+                video =>
+                    createVideoCard(video)
             )
             .join("");
 
@@ -591,19 +668,30 @@ function displayVideos(videos) {
 function setupSearch(allVideos) {
 
     const searchBox =
-        document.getElementById("search");
+        document.getElementById(
+            "search"
+        );
+
 
     const categoryFilter =
-        document.getElementById("categoryFilter");
+        document.getElementById(
+            "categoryFilter"
+        );
+
 
     const monthFilter =
-        document.getElementById("monthFilter");
+        document.getElementById(
+            "monthFilter"
+        );
+
 
     const clearButton =
-        document.getElementById("clearFilters");
+        document.getElementById(
+            "clearFilters"
+        );
 
 
-    /* 大会フィルター作成 */
+    /* 大会フィルター */
 
     setupCategoryFilter(
         allVideos,
@@ -611,7 +699,7 @@ function setupSearch(allVideos) {
     );
 
 
-    /* 年月フィルター作成 */
+    /* 年月フィルター */
 
     setupMonthFilter(
         allVideos,
@@ -619,14 +707,16 @@ function setupSearch(allVideos) {
     );
 
 
-    /* 検索 */
+    /* キーワード検索 */
 
     if (searchBox) {
 
         searchBox.oninput =
             function() {
 
-                applyFilters(allVideos);
+                applyFilters(
+                    allVideos
+                );
 
             };
 
@@ -640,7 +730,9 @@ function setupSearch(allVideos) {
         categoryFilter.onchange =
             function() {
 
-                applyFilters(allVideos);
+                applyFilters(
+                    allVideos
+                );
 
             };
 
@@ -654,7 +746,9 @@ function setupSearch(allVideos) {
         monthFilter.onchange =
             function() {
 
-                applyFilters(allVideos);
+                applyFilters(
+                    allVideos
+                );
 
             };
 
@@ -670,26 +764,31 @@ function setupSearch(allVideos) {
 
                 if (searchBox) {
 
-                    searchBox.value = "";
+                    searchBox.value =
+                        "";
 
                 }
 
 
                 if (categoryFilter) {
 
-                    categoryFilter.value = "";
+                    categoryFilter.value =
+                        "";
 
                 }
 
 
                 if (monthFilter) {
 
-                    monthFilter.value = "";
+                    monthFilter.value =
+                        "";
 
                 }
 
 
-                applyFilters(allVideos);
+                applyFilters(
+                    allVideos
+                );
 
             };
 
@@ -712,28 +811,38 @@ function setupCategoryFilter(
         return;
 
     }
-   select.innerHTML = `
-    <option value="">
-        すべての大会
-    </option>
-`;
+
+
+    select.innerHTML = `
+
+        <option value="">
+            すべての大会
+        </option>
+
+    `;
 
 
     const categories =
         [
             ...new Set(
+
                 videos
-                    .map(video =>
-                        video.category.trim()
+                    .map(
+                        video =>
+                            video.category.trim()
                     )
                     .filter(Boolean)
+
             )
         ];
 
 
     categories.sort(
         (a, b) =>
-            a.localeCompare(b, "ja")
+            a.localeCompare(
+                b,
+                "ja"
+            )
     );
 
 
@@ -741,7 +850,9 @@ function setupCategoryFilter(
         function(category) {
 
             const option =
-                document.createElement("option");
+                document.createElement(
+                    "option"
+                );
 
 
             option.value =
@@ -752,7 +863,9 @@ function setupCategoryFilter(
                 category;
 
 
-            select.appendChild(option);
+            select.appendChild(
+                option
+            );
 
         }
     );
@@ -774,11 +887,15 @@ function setupMonthFilter(
         return;
 
     }
-   select.innerHTML = `
-    <option value="">
-        すべての年月
-    </option>
-`;
+
+
+    select.innerHTML = `
+
+        <option value="">
+            すべての年月
+        </option>
+
+    `;
 
 
     const months =
@@ -786,11 +903,12 @@ function setupMonthFilter(
             ...new Set(
 
                 videos
-
-                    .map(video =>
-                        getYearMonth(video.date)
+                    .map(
+                        video =>
+                            getYearMonth(
+                                video.date
+                            )
                     )
-
                     .filter(Boolean)
 
             )
@@ -807,7 +925,9 @@ function setupMonthFilter(
         function(month) {
 
             const option =
-                document.createElement("option");
+                document.createElement(
+                    "option"
+                );
 
 
             option.value =
@@ -815,10 +935,14 @@ function setupMonthFilter(
 
 
             option.textContent =
-                formatYearMonth(month);
+                formatYearMonth(
+                    month
+                );
 
 
-            select.appendChild(option);
+            select.appendChild(
+                option
+            );
 
         }
     );
@@ -863,7 +987,11 @@ function getYearMonth(dateString) {
         );
 
 
-    return `${year}-${month}`;
+    return (
+        year +
+        "-" +
+        month
+    );
 
 }
 
@@ -885,7 +1013,12 @@ function formatYearMonth(month) {
     }
 
 
-    return `${parts[0]}年${Number(parts[1])}月`;
+    return (
+        parts[0] +
+        "年" +
+        Number(parts[1]) +
+        "月"
+    );
 
 }
 
@@ -897,13 +1030,21 @@ function formatYearMonth(month) {
 function applyFilters(allVideos) {
 
     const searchBox =
-        document.getElementById("search");
+        document.getElementById(
+            "search"
+        );
+
 
     const categoryFilter =
-        document.getElementById("categoryFilter");
+        document.getElementById(
+            "categoryFilter"
+        );
+
 
     const monthFilter =
-        document.getElementById("monthFilter");
+        document.getElementById(
+            "monthFilter"
+        );
 
 
     const keyword =
@@ -945,14 +1086,17 @@ function applyFilters(allVideos) {
 
                 const matchesKeyword =
                     !keyword ||
-                    text.includes(keyword);
+                    text.includes(
+                        keyword
+                    );
 
 
                 /* 大会 */
 
                 const matchesCategory =
                     !category ||
-                    video.category === category;
+                    video.category ===
+                        category;
 
 
                 /* 年月 */
@@ -974,7 +1118,9 @@ function applyFilters(allVideos) {
         );
 
 
-    displayVideos(results);
+    displayVideos(
+        results
+    );
 
 
     updateFilterResult(
@@ -1021,7 +1167,9 @@ function updateFilterResult(
 
 
     const message =
-        document.createElement("div");
+        document.createElement(
+            "div"
+        );
 
 
     message.className =
@@ -1038,39 +1186,8 @@ function updateFilterResult(
     );
 
 }
-/* ======================================================
-   再生回数表示
-====================================================== */
 
-function formatViewCount(value) {
 
-    if (
-        value === undefined ||
-        value === null ||
-        value === ""
-    ) {
-
-        return "0";
-
-    }
-
-    const number =
-        Number(
-            String(value)
-                .replace(/,/g, "")
-        );
-
-    if (
-        isNaN(number)
-    ) {
-
-        return "0";
-
-    }
-
-    return number.toLocaleString("ja-JP");
-
-}
 /* ======================================================
    HTMLエスケープ
 ====================================================== */
@@ -1086,15 +1203,30 @@ function escapeHTML(value) {
 
     return String(value)
 
-        .replace(/&/g, "&amp;")
+        .replace(
+            /&/g,
+            "&amp;"
+        )
 
-        .replace(/</g, "&lt;")
+        .replace(
+            /</g,
+            "&lt;"
+        )
 
-        .replace(/>/g, "&gt;")
+        .replace(
+            />/g,
+            "&gt;"
+        )
 
-        .replace(/"/g, "&quot;")
+        .replace(
+            /"/g,
+            "&quot;"
+        )
 
-        .replace(/'/g, "&#039;");
+        .replace(
+            /'/g,
+            "&#039;"
+        );
 
 }
 
@@ -1111,6 +1243,8 @@ document.addEventListener(
 
     }
 );
+
+
 /* ======================================================
    サイト内YouTube再生
 ====================================================== */
@@ -1125,11 +1259,15 @@ function openVideo(videoId) {
 
 
     const modal =
-        document.getElementById("videoModal");
+        document.getElementById(
+            "videoModal"
+        );
 
 
     const iframe =
-        document.getElementById("youtubePlayer");
+        document.getElementById(
+            "youtubePlayer"
+        );
 
 
     if (!modal || !iframe) {
@@ -1145,7 +1283,9 @@ function openVideo(videoId) {
         "?autoplay=1&rel=0";
 
 
-    modal.classList.add("active");
+    modal.classList.add(
+        "active"
+    );
 
 
     document.body.style.overflow =
@@ -1161,11 +1301,15 @@ function openVideo(videoId) {
 function closeVideo() {
 
     const modal =
-        document.getElementById("videoModal");
+        document.getElementById(
+            "videoModal"
+        );
 
 
     const iframe =
-        document.getElementById("youtubePlayer");
+        document.getElementById(
+            "youtubePlayer"
+        );
 
 
     if (!modal || !iframe) {
@@ -1177,7 +1321,10 @@ function closeVideo() {
 
     iframe.src = "";
 
-    modal.classList.remove("active");
+
+    modal.classList.remove(
+        "active"
+    );
 
 
     document.body.style.overflow =
@@ -1194,7 +1341,9 @@ document.addEventListener(
     "keydown",
     function(event) {
 
-        if (event.key === "Escape") {
+        if (
+            event.key === "Escape"
+        ) {
 
             closeVideo();
 
